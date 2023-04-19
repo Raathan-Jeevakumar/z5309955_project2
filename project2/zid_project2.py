@@ -359,6 +359,20 @@ def mk_aret_df(ret_df):
     """
     # <COMPLETE THIS PART>
 
+    new_df = ret_df.drop(['mkt'], axis=1)
+    col_names = list(ret_df.columns.values)
+    dates = list(ret_df.index.values)
+    for index, row in ret_df.iterrows():
+        i = 0
+        while i < (len(col_names)-1):
+            new_val = row[col_names[i]] - row[col_names[-1]]
+            new_df.at[dates[i], col_names[i]] = new_val
+            i += 1
+    return new_df
+
+
+
+
 
 
 # ----------------------------------------------------------------------------
@@ -976,8 +990,8 @@ if __name__ == "__main__":
     #_test_cfg()
     #_test_read_prc_csv()
     #_test_mk_prc_df()
-    _test_mk_ret_df()
-    #_test_mk_aret_df()
+    #_test_mk_ret_df()
+    _test_mk_aret_df()
     #_test_get_avg()
     #_test_get_ew_rets()
     #_test_get_ann_ret()
